@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demilade - Frontend Developer</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary-color: #f1f5f9;
+      --accent-color: #06b6d4;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --text-light: #94a3b8;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--gray-50) 0%, var(--secondary-color) 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Header Styles */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+      background: var(--gray-100);
+    }
+
+    nav a.active {
+      color: var(--primary-color);
+      background: var(--gray-100);
+    }
+
+    /* Main Content */
+    main {
+      padding: 2rem 0;
+      min-height: calc(100vh - 80px);
+    }
+
+    .page {
+      background: var(--white);
+      border-radius: 1rem;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Home Page Styles */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+      color: var(--white);
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .profile-section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid var(--white);
+      margin: 0 auto 2rem;
+      display: block;
+      box-shadow: var(--shadow-xl);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.05);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero .subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .social-link:hover {
+      background: var(--white);
+      color: var(--primary-color);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .social-link img {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+    }
+
+    .social-link:hover img {
+      filter: none;
+    }
+
+    /* About Page Styles */
+    .about-content {
+      padding: 3rem 2rem;
+    }
+
+    .about-section {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: var(--gray-50);
+      border-radius: 1rem;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .about-section h2 {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .about-section h2 i {
+      font-size: 1.25rem;
+    }
+
+    .about-section p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .about-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .about-section li {
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .about-section li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    /* Contact Page Styles */
+    .contact-content {
+      padding: 3rem 2rem;
+    }
+
+    .contact-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .contact-header h2 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .contact-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid var(--gray-200);
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: var(--white);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .error {
+      color: #ef4444;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: block;
+    }
+
+    .success {
+      background: #10b981;
+      color: var(--white);
+      padding: 1rem;
+      border-radius: 0.75rem;
+      margin-top: 1rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        gap: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+      }
+
+      .social-links {
+        gap: 1rem;
+      }
+
+      .social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 1.25rem;
+      }
+
+      .about-content,
+      .contact-content {
+        padding: 2rem 1rem;
+      }
+
+      .about-section {
+        padding: 1.5rem;
+      }
+
+      .contact-header h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 2rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+
+      .social-links {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="#" class="logo" id="homeLink">Demilade</a>
+        <nav>
+          <ul>
+            <li><a href="#" id="homeNavLink" class="active">Home</a></li>
+            <li><a href="#" id="aboutNavLink">About Me</a></li>
+            <li><a href="#" id="contactNavLink">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div id="content" class="page">
+        <!-- Default (Home Page) -->
+        <div id="homePage">
+          <div class="hero">
+            <div class="profile-section">
+              <img src="profile.jpg" alt="Demilade Profile Picture" class="profile-image">
+              <h1>Hello, I'm Demilade</h1>
+              <p class="subtitle">Frontend Developer passionate about creating accessible, responsive, and user-friendly experiences</p>
+              <div class="social-links">
+                <a href="https://github.com/Demiladepy" class="social-link" target="_blank" rel="noopener noreferrer">
+                  <img src="downloadithub.png" alt="GitHub">
+                </a>
+                <a href="https://www.linkedin.com/in/demilade-ayeku-b6598b291" class="social-link" target="_blank" rel="noopener noreferrer">
+                  <img src="linkedin.png" alt="LinkedIn">
+                </a>
+                <a href="https://x.com/CodeCraft390741?t=2ZUE88yQ4Fvqj7HM4PZ6Mw&s=09" class="social-link" target="_blank" rel="noopener noreferrer">
+                  <img src="xxx.png" alt="X (Twitter)">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const content = document.getElementById("content");
+    const homeLink = document.getElementById("homeLink");
+    const homeNavLink = document.getElementById("homeNavLink");
+    const aboutNavLink = document.getElementById("aboutNavLink");
+    const contactNavLink = document.getElementById("contactNavLink");
+
+    // HOME PAGE
+    const homePage = `
+      <div id="homePage">
+        <div class="hero">
+          <div class="profile-section">
+            <img src="profile.jpg" alt="Demilade Profile Picture" class="profile-image">
+            <h1>Hello, I'm Demilade</h1>
+            <p class="subtitle">Frontend Developer passionate about creating accessible, responsive, and user-friendly experiences</p>
+            <div class="social-links">
+              <a href="https://github.com/yourusername" class="social-link" target="_blank" rel="noopener noreferrer">
+                <img src="downloadithub.png" alt="GitHub">
+              </a>
+              <a href="https://linkedin.com/in/yourusername" class="social-link" target="_blank" rel="noopener noreferrer">
+                <img src="linkedin.png" alt="LinkedIn">
+              </a>
+              <a href="https://x.com/yourusername" class="social-link" target="_blank" rel="noopener noreferrer">
+                <img src="xxx.png" alt="X (Twitter)">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // ABOUT PAGE
+    const aboutPage = `
+      <div class="about-content">
+        <div class="about-section" data-testid="test-about-bio">
+          <h2><i class="fas fa-user"></i> Bio</h2>
+          <p>Hello, I'm Demilade, a developer passionate about creating modern, functional, and human-centered digital experiences. I believe in the power of clean code and intuitive design to solve real-world problems.</p>
+        </div>
+
+        <div class="about-section" data-testid="test-about-goals">
+          <h2><i class="fas fa-target"></i> Goals in this program</h2>
+          <ul>
+            <li>Improve my frontend and accessibility skills to create more inclusive web experiences</li>
+            <li>Master writing clean, maintainable, and scalable code</li>
+            <li>Collaborate effectively within a tech community and contribute to open source projects</li>
+            <li>Learn modern frameworks and tools to stay current with industry trends</li>
+            <li>Build a strong portfolio of projects that showcase my abilities</li>
+          </ul>
+        </div>
+
+        <div class="about-section" data-testid="test-about-confidence">
+          <h2><i class="fas fa-chart-line"></i> Areas of growth</h2>
+          <p>I'm continuously working on improving my skills in advanced CSS layouts, accessibility patterns, and performance optimization. I'm also expanding my knowledge in modern JavaScript frameworks and testing methodologies.</p>
+        </div>
+
+        <div class="about-section" data-testid="test-about-future-note">
+          <h2><i class="fas fa-lightbulb"></i> Note to future self</h2>
+          <p>Never stop learning — stay consistent and focused on growth. Remember that every expert was once a beginner, and every professional was once an amateur. Keep building, keep learning, and most importantly, keep believing in yourself.</p>
+        </div>
+
+        <div class="about-section" data-testid="test-about-extra">
+          <h2><i class="fas fa-heart"></i> Extra thoughts</h2>
+          <p>Each line of code brings me closer to mastery. Stay humble, stay curious, and keep building amazing things that make a difference in people's lives. The journey of a thousand miles begins with a single step.</p>
+        </div>
+      </div>
+    `;
+
+    // CONTACT PAGE
+    const contactPage = `
+      <div class="contact-content">
+        <div class="contact-header">
+          <h2>Get In Touch</h2>
+          <p>I'd love to hear from you! Send me a message and I'll respond as soon as possible.</p>
+        </div>
+        
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" data-testid="test-contact-name" aria-describedby="test-contact-error-name" required />
+            <span id="test-contact-error-name" class="error" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" data-testid="test-contact-email" aria-describedby="test-contact-error-email" required />
+            <span id="test-contact-error-email" class="error" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" data-testid="test-contact-subject" aria-describedby="test-contact-error-subject" required />
+            <span id="test-contact-error-subject" class="error" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" data-testid="test-contact-message" aria-describedby="test-contact-error-message" required placeholder="Tell me about your project or just say hello!"></textarea>
+            <span id="test-contact-error-message" class="error" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="submit-btn" data-testid="test-contact-submit">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+          <p id="success" data-testid="test-contact-success" class="success" hidden>
+            <i class="fas fa-check-circle"></i> Your message was sent successfully!
+          </p>
+        </form>
+      </div>
+    `;
+
+    // Navigation state management
+    function updateActiveNav(activeLink) {
+      [homeNavLink, aboutNavLink, contactNavLink].forEach(link => {
+        link.classList.remove('active');
+      });
+      activeLink.classList.add('active');
+    }
+
+    // Navigation Events
+    homeLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      content.innerHTML = homePage;
+      updateActiveNav(homeNavLink);
+    });
+
+    homeNavLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      content.innerHTML = homePage;
+      updateActiveNav(homeNavLink);
+    });
+
+    aboutNavLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      content.innerHTML = aboutPage;
+      updateActiveNav(aboutNavLink);
+    });
+
+    contactNavLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      content.innerHTML = contactPage;
+      updateActiveNav(contactNavLink);
+      initFormValidation();
+    });
+
+    // Validation Logic
+    function initFormValidation() {
+      const form = document.getElementById("contactForm");
+      const successMsg = document.getElementById("success");
+
+      if (!form) return;
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const subject = document.getElementById("subject");
+        const message = document.getElementById("message");
+
+        let valid = true;
+
+        const showError = (field, msg) => {
+          const errorSpan = document.getElementById('test-contact-error-' + field.id);
+          if (errorSpan) {
+            errorSpan.textContent = msg;
+          }
+          field.setAttribute("aria-invalid", "true");
+          field.style.borderColor = "#ef4444";
+          valid = false;
+        };
+
+        const clearError = (field) => {
+          const errorSpan = document.getElementById('test-contact-error-' + field.id);
+          if (errorSpan) {
+            errorSpan.textContent = "";
+          }
+          field.removeAttribute("aria-invalid");
+          field.style.borderColor = "#e2e8f0";
+        };
+
+        [name, email, subject, message].forEach(clearError);
+
+        if (!name || !name.value.trim()) {
+          showError(name, "Full name is required.");
+        }
+        if (!email || !email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+          showError(email, "Enter a valid email address.");
+        }
+        if (!subject || !subject.value.trim()) {
+          showError(subject, "Subject is required.");
+        }
+        if (!message || message.value.trim().length < 10) {
+          showError(message, "Message must be at least 10 characters.");
+        }
+
+        if (valid) {
+          if (successMsg) {
+            successMsg.hidden = false;
+            successMsg.scrollIntoView({ behavior: 'smooth' });
+          }
+          form.reset();
+        } else {
+          if (successMsg) {
+            successMsg.hidden = true;
+          }
+        }
+      });
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set initial active state
+      updateActiveNav(homeNavLink);
+    });
+  </script>
+</body>
+</html>
